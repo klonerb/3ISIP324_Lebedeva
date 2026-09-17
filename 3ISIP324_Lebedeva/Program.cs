@@ -118,7 +118,119 @@ else if (choice == "4")
         }
     }
     if (found == null)
-                  
+    {
+                            Console.WriteLine("Товар не найден!");
+                    continue;
+                }
+                Console.Write("Сколько единиц продать: ");
+                int sell = int.Parse(Console.ReadLine());
+
+                if (sell > found.Count)
+                {
+                    Console.WriteLine($"Недостаточно товара! На складе только {found.Count}");
+                    continue;
+                }
+                found.Count -= sell;
+                found.InStock = found.Count > 0;
+                Console.WriteLine($"Продано. Осталось на складе: {found.Count}");
+            }
+            else if (choice == "5")
+            {
+                Console.WriteLine("Поиск по:");
+                Console.WriteLine("1. Коду");
+                Console.WriteLine("2. Названию");
+                Console.WriteLine("3. Категории");
+                Console.Write("Выберите: ");
+                string searchChoice = Console.ReadLine();
+                bool foundAny = false;
+                if (searchChoice == "1")
+                {
+                    Console.Write("Введите код: ");
+                    string code = Console.ReadLine();
+
+                    foreach (Product p in products)
+                    {
+                        if (p.Code == code)
+                        {
+                            p.PrintInfo();
+                            foundAny = true;
+                        }
+                    }
+                }
+                else if (searchChoice == "2")
+                {
+                    Console.Write("Введите название: ");
+                    string name = Console.ReadLine();
+                    foreach (Product p in products)
+                    {
+                        if (p.Name.ToLower().Contains(name.ToLower()))
+                        {
+                            p.PrintInfo();
+                            foundAny = true;
+                        }
+                    }
+                }
+                else if (searchChoice == "3")
+                {
+                    Console.Write("Введите категорию: ");
+                    string poisk = Console.ReadLine();
+                    foreach (Product p in products)
+                    {
+                        if (p.Category.ToLower() == poisk.ToLower())
+                        {
+                            p.PrintInfo();
+                            foundAny = true;
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Неверный выбор!");
+                    continue;
+                }
+                if (!foundAny)
+                    Console.WriteLine("Ничего не найдено!");
+            }
+            else if (choice == "6")
+            {
+                if (products.Count == 0)
+                {
+                    Console.WriteLine("Список пуст.");
+                    continue;
+                }
+
+                Console.WriteLine("\n--- Все товары ---");
+                foreach (Product p in products)
+                    p.PrintInfo();
+            }
+            else if (choice == "0")
+            {
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Неверный выбор!");
+            }
+        }
+    }
+}
+class Product
+{
+    public string Code;
+    public string Name;
+    public double Price;
+    public int Count;
+    public bool InStock;
+    public string Category;
+    public void PrintInfo()
+    {
+        Console.WriteLine("--------------------");
+        Console.WriteLine($"Код: {Code}");
+        Console.WriteLine($"Название: {Name}");
+        Console.WriteLine($"Цена: {Price}");
+        Console.WriteLine($"Количество: {Count}");
+        Console.WriteLine($"В наличии: {(InStock ? "Да" : "Нет")}");
+        Console.WriteLine($"Категория: {Category}");
         }
     }
 }
