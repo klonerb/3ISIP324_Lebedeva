@@ -31,9 +31,10 @@ namespace _3ISIP324_Lebedeva
     string name = Console.ReadLine();
     Console.Write("Введите цену: ");
     double price = double.Parse(Console.ReadLine());
-    Console.WriteLine("Выберите категорию: ");
-    for (int i = 0; i < categories.Length; i++) 
-        Console.WriteLine($"{i+1}. {categories[i]}");
+    Console.Write("Введите количество: ");
+    int count = int.Parse(Console.ReadLine());
+    Console.WriteLine("Выберите категорию:");
+                  
         }
     }
 }
